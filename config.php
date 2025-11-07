@@ -17,8 +17,17 @@ define('TPL_KEY_DESCRIPTION', 'description');
 define('TPL_DIR', __DIR__ . '/views');
 
 // Site config
-// define('SITE_URL', "http://localhost/katalon-sample/"); // website URL with ended slash
-define('SITE_URL', "https://katalon-demo-cura.herokuapp.com/");
+// detect if running locally or on production
+if ($_SERVER['HTTP_HOST'] === 'localhost' || strpos($_SERVER['HTTP_HOST'], 'localhost:') === 0 || strpos($_SERVER['HTTP_HOST'], '127.0.0.1') === 0) {
+    // Local development
+    $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http';
+    $port = $_SERVER['SERVER_PORT'];
+    $host = $_SERVER['HTTP_HOST'];
+    define('SITE_URL', "$protocol://$host/");
+} else {
+    // Production
+    define('SITE_URL', "https://katalon-demo-cura.herokuapp.com/");
+}
 define('SITE_NAME', "CURA Healthcare Service");
 define('SITE_ADDRESS', "Atlanta 550 Pharr Road NE Suite 525<br>Atlanta, GA 30305");
 define('SITE_TEL', "(678) 813-1KMS");
