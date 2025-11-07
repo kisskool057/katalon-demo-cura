@@ -2,56 +2,77 @@
 // THEME MANAGEMENT
 // ============================================
 
-// Apply theme class to body on page load
-$(function() {
-    applyCurrentTheme();
-});
+console.log('🎨 Theme Management Script Loaded');
 
+// Apply theme class to body on page load
 function applyCurrentTheme() {
-    // Get the current theme from the radio button
-    var selectedTheme = $('input[name="theme"]:checked').val();
+    console.log('📍 applyCurrentTheme() called');
+
+    // Get the current theme from the radio button - use vanilla JS
+    var themeRadios = document.querySelectorAll('input[name="theme"]');
+    console.log('Found theme radios:', themeRadios.length);
+
+    var selectedTheme = null;
+    for (var i = 0; i < themeRadios.length; i++) {
+        if (themeRadios[i].checked) {
+            selectedTheme = themeRadios[i].value;
+            break;
+        }
+    }
+
+    console.log('Selected theme:', selectedTheme);
 
     // Remove all theme classes
-    $('body').removeClass('theme-light theme-dark');
+    document.body.classList.remove('theme-light', 'theme-dark');
+    console.log('Removed all theme classes');
 
     // Apply the selected theme class if it's not 'system'
     if (selectedTheme && selectedTheme !== 'system') {
-        $('body').addClass('theme-' + selectedTheme);
-        console.log('Theme applied:', 'theme-' + selectedTheme);
+        document.body.classList.add('theme-' + selectedTheme);
+        console.log('✅ Added class: theme-' + selectedTheme);
     } else {
-        console.log('Theme not applied (system mode or no selection)');
+        console.log('ℹ️ System theme or no selection');
     }
 
     // Debug: log current body classes
     console.log('Body classes:', document.body.className);
+    console.log('Body computed background:', window.getComputedStyle(document.body).backgroundColor);
 }
 
-// Handle theme changes
-$(function() {
-    $('input[name="theme"]').on('change', function() {
-        var selectedTheme = $(this).val();
+// Initialize on page load
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', applyCurrentTheme);
+} else {
+    applyCurrentTheme();
+}
 
-        console.log('Theme radio changed to:', selectedTheme);
+// Handle theme changes with vanilla JS
+document.addEventListener('change', function(e) {
+    if (e.target.name === 'theme') {
+        var selectedTheme = e.target.value;
+        console.log('🔄 Theme radio changed to:', selectedTheme);
 
         // Apply the theme immediately
         applyCurrentTheme();
 
         // Send the theme preference to the server
-        $.ajax({
-            url: './set-theme.php',
-            type: 'POST',
-            data: { theme: selectedTheme },
-            success: function(response) {
-                console.log('Theme persisted to server:', response);
-                // Visual feedback - briefly show a message
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', './set-theme.php', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                console.log('✅ Theme persisted to server:', xhr.responseText);
                 var bgColor = window.getComputedStyle(document.body).backgroundColor;
                 console.log('Current body background color:', bgColor);
-            },
-            error: function(xhr, status, error) {
-                console.error('Error updating theme:', error, xhr.responseText);
+            } else {
+                console.error('❌ Server error:', xhr.status, xhr.responseText);
             }
-        });
-    });
+        };
+        xhr.onerror = function() {
+            console.error('❌ Network error updating theme');
+        };
+        xhr.send('theme=' + encodeURIComponent(selectedTheme));
+    }
 });
 
 // ============================================
