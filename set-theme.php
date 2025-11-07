@@ -39,7 +39,7 @@ if (ThemeManager::setTheme($theme)) {
     echo json_encode([
         'error' => 'Invalid theme value',
         'received' => $theme,
-        'valid_themes' => ['light', 'dark', 'system']
+        'valid_themes' => ThemeManager::getAllowedThemes()
     ]);
 }
 

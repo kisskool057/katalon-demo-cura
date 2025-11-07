@@ -74,10 +74,6 @@ ThemeManager::initializeTheme();
                     <input type="radio" name="theme" value="dark" <?php echo ThemeManager::getTheme() === 'dark' ? 'checked' : ''; ?> style="cursor: pointer;">
                     Dark
                 </label>
-                <label style="display: flex; align-items: center; gap: 5px; color: var(--color-text-muted); font-size: 0.85em; cursor: pointer;">
-                    <input type="radio" name="theme" value="system" <?php echo ThemeManager::getTheme() === 'system' ? 'checked' : ''; ?> style="cursor: pointer;">
-                    System
-                </label>
             </form>
         </li>
     </ul>

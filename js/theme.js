@@ -2,11 +2,11 @@
 // THEME MANAGEMENT
 // ============================================
 
-console.log('🎨 Theme Management Script Loaded');
+console.log('[theme] Theme Management Script Loaded');
 
 // Apply theme class to body on page load
 function applyCurrentTheme() {
-    console.log('📍 applyCurrentTheme() called');
+    console.log('[theme] applyCurrentTheme() called');
 
     // Get the current theme from the radio button - use vanilla JS
     var themeRadios = document.querySelectorAll('input[name="theme"]');
@@ -20,23 +20,24 @@ function applyCurrentTheme() {
         }
     }
 
-    console.log('Selected theme:', selectedTheme);
+    console.log('[theme] Selected theme:', selectedTheme);
 
     // Remove all theme classes
     document.body.classList.remove('theme-light', 'theme-dark');
-    console.log('Removed all theme classes');
+    console.log('[theme] Removed all theme classes');
 
-    // Apply the selected theme class if it's not 'system'
-    if (selectedTheme && selectedTheme !== 'system') {
+    // Apply the selected theme class
+    if (selectedTheme) {
         document.body.classList.add('theme-' + selectedTheme);
-        console.log('✅ Added class: theme-' + selectedTheme);
+        console.log('[theme] Added class: theme-' + selectedTheme);
     } else {
-        console.log('ℹ️ System theme or no selection');
+        console.warn('[theme] No theme selected; defaulting to light');
+        document.body.classList.add('theme-light');
     }
 
     // Debug: log current body classes
-    console.log('Body classes:', document.body.className);
-    console.log('Body computed background:', window.getComputedStyle(document.body).backgroundColor);
+    console.log('[theme] Body classes:', document.body.className);
+    console.log('[theme] Body computed background:', window.getComputedStyle(document.body).backgroundColor);
 }
 
 // Initialize on page load
@@ -50,7 +51,7 @@ if (document.readyState === 'loading') {
 document.addEventListener('change', function(e) {
     if (e.target.name === 'theme') {
         var selectedTheme = e.target.value;
-        console.log('🔄 Theme radio changed to:', selectedTheme);
+        console.log('[theme] Theme radio changed to:', selectedTheme);
 
         // Apply the theme immediately
         applyCurrentTheme();
@@ -61,15 +62,15 @@ document.addEventListener('change', function(e) {
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         xhr.onload = function() {
             if (xhr.status === 200) {
-                console.log('✅ Theme persisted to server:', xhr.responseText);
+                console.log('[theme] Theme persisted to server:', xhr.responseText);
                 var bgColor = window.getComputedStyle(document.body).backgroundColor;
                 console.log('Current body background color:', bgColor);
             } else {
-                console.error('❌ Server error:', xhr.status, xhr.responseText);
+                console.error('[theme] Server error:', xhr.status, xhr.responseText);
             }
         };
         xhr.onerror = function() {
-            console.error('❌ Network error updating theme');
+            console.error('[theme] Network error updating theme');
         };
         xhr.send('theme=' + encodeURIComponent(selectedTheme));
     }
