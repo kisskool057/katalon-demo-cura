@@ -1,0 +1,27 @@
+{
+  "name": "katalon-demo-cura",
+  "version": "2.0.0",
+  "description": "CURA appointment application with theme management automation tests",
+  "scripts": {
+    "test": "playwright test",
+    "test:ui": "playwright test --ui",
+    "test:debug": "playwright test --debug",
+    "test:headed": "playwright test --headed",
+    "test:report": "playwright show-report",
+    "test:demo-65": "playwright test tests/demo-65-theme",
+    "test:demo-65:ui": "playwright test tests/demo-65-theme --ui",
+    "test:demo-65:headed": "playwright test tests/demo-65-theme --headed",
+    "test:demo-65:debug": "playwright test tests/demo-65-theme --debug",
+    "test:chrome": "playwright test --project=chromium",
+    "test:chrome:headed": "playwright test --project=chromium --headed",
+    "test:firefox": "playwright test --project=firefox",
+    "test:firefox:headed": "playwright test --project=firefox --headed",
+    "test:demo-65:chrome": "playwright test tests/demo-65-theme --project=chromium",
+    "test:demo-65:chrome:headed": "playwright test tests/demo-65-theme --project=chromium --headed",
+    "test:demo-65:firefox": "playwright test tests/demo-65-theme --project=firefox",
+    "test:demo-65:firefox:headed": "playwright test tests/demo-65-theme --project=firefox --headed"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.48.0"
+  }
+}
