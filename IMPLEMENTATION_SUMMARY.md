@@ -22,8 +22,8 @@ The CURA Healthcare Service application has been enhanced with:
 #### Backend (PHP)
 - **ThemeManager Class** (`functions.php:7-48`)
   - Session-based theme preference management
-  - Three modes: light, dark, system
-  - Methods: `getTheme()`, `setTheme()`, `getThemeClass()`, `initializeTheme()`
+  - Two modes: light (default), dark
+  - Methods: `getTheme()`, `setTheme()`, `getThemeClass()`, `getAllowedThemes()`, `initializeTheme()`
 
 - **API Endpoint** (`set-theme.php`)
   - AJAX endpoint for theme changes
@@ -40,16 +40,17 @@ The CURA Healthcare Service application has been enhanced with:
 #### Styling (CSS)
 - **CSS Variables** (`css/theme.css`)
   - Refactored with CSS Custom Properties
-  - Light theme colors (default)
-  - Dark theme colors (system preference & explicit)
+  - Light theme colors (default via `:root`)
+  - Dark theme colors (explicit via `.theme-dark` class)
   - Smooth transitions (0.3s)
 
 #### User Interface
 - **Theme Selector** (`views/page_template.php`)
   - Added to sidebar menu
-  - Three radio button options
+  - Two radio button options: Light and Dark
   - Styled to match application design
   - Current selection preserved
+  - Light is the default when no preference is set
 
 ### Phase 2: Docker Deployment
 
@@ -182,9 +183,8 @@ Note: Accept the security warning
 1. Click the **hamburger menu** (☰) in the top-right corner
 2. Scroll down to the **Theme** section
 3. Select:
-   - **Light** - Bright interface
+   - **Light** - Bright interface (default)
    - **Dark** - Dark mode
-   - **System** - Follows OS dark mode setting
 4. Theme applies instantly without page reload
 
 ### Common Docker Commands
@@ -306,13 +306,13 @@ katalon-demo-cura/
 
 ### Theme System
 - ✅ Theme selector visible in sidebar
-- ✅ Light theme works correctly
+- ✅ Light theme works correctly (default)
 - ✅ Dark theme works correctly
-- ✅ System theme respects OS preference
 - ✅ Theme changes apply instantly
 - ✅ Theme preference persists during session
 - ✅ No page reloads needed
 - ✅ CSS transitions smooth (0.3s)
+- ✅ System theme option removed
 
 ### HTTPS/Security
 - ✅ Browser shows certificate warning (expected)
@@ -359,12 +359,12 @@ katalon-demo-cura/
 ### Theme System
 | Feature | Details |
 |---------|---------|
-| **Modes** | Light, Dark, System |
+| **Modes** | Light (default), Dark |
 | **Persistence** | Session-based (during visit) |
 | **Performance** | Instant apply, 0.3s smooth transitions |
 | **API** | AJAX endpoint, no page reload |
 | **Browser Support** | All modern browsers |
-| **Accessibility** | Respects system preferences |
+| **Default** | Light theme |
 
 ### Docker Deployment
 | Feature | Details |
@@ -405,7 +405,7 @@ katalon-demo-cura/
 - [ ] Database persistence (across sessions/devices)
 - [ ] Custom theme variants
 - [ ] High contrast theme
-- [ ] Theme scheduling (auto-switch at sunset)
+- [ ] System theme option (respects OS preference)
 - [ ] Theme animation effects
 
 ### Docker

@@ -17,12 +17,12 @@ A new PHP class `ThemeManager` was added with the following capabilities:
   - `SESSION_THEME_KEY`: Session variable key for theme preference
   - `THEME_LIGHT`: Light theme identifier
   - `THEME_DARK`: Dark theme identifier
-  - `THEME_SYSTEM`: System preference identifier
 
 - **Methods**:
   - `getTheme()`: Returns the current theme preference
   - `setTheme($theme)`: Sets and validates the theme preference
   - `getThemeClass()`: Returns the CSS class to apply to the body element
+  - `getAllowedThemes()`: Returns the list of available themes
   - `initializeTheme()`: Initializes theme in session if not already set
 
 ### Modified CSS Architecture
@@ -39,8 +39,7 @@ Refactored the entire CSS file to use CSS Custom Properties (Variables):
 
 - **Theme Support**:
   - Light theme (default): Using `:root` selector
-  - Dark theme: Using `@media (prefers-color-scheme: dark)` for system preference detection
-  - Forced themes: Using `.theme-light` and `.theme-dark` classes for explicit user selection
+  - Dark theme: Using `.theme-dark` class for explicit dark theme selection
 
 - **Updated Selectors**: All color-related CSS rules now use CSS variables instead of hardcoded values
   - `.btn-dark`, `.btn-light`
@@ -53,10 +52,11 @@ Refactored the entire CSS file to use CSS Custom Properties (Variables):
 
 Added theme selector in the sidebar navigation:
 
-- Three radio button options: Light, Dark, System
+- Two radio button options: Light, Dark
 - Styled to match the existing design
 - Theme selection options appear at the bottom of the sidebar menu
 - Current selection is pre-checked based on session preference
+- Light theme is the default when no preference is set
 
 ### New Theme Endpoint
 **File**: [set-theme.php](set-theme.php)
@@ -77,8 +77,9 @@ Enhanced JavaScript with theme management functionality:
 - `applyCurrentTheme()`: Function to apply theme class to body element
 - Event listener for radio button changes
 - AJAX call to [set-theme.php](set-theme.php) to persist preferences
-- Page load initialization to apply saved theme
+- Page load initialization to apply saved theme (defaults to light if none selected)
 - Smooth transitions between themes
+- Removed system theme detection logic
 
 ---
 
@@ -179,7 +180,7 @@ Created detailed Docker guide covering:
 
 1. Click the hamburger menu icon (top-right)
 2. Scroll to the "Theme" section
-3. Select Light, Dark, or System
+3. Select Light or Dark
 4. Theme applies immediately
 5. Preference is saved for your session
 
@@ -224,11 +225,9 @@ Browser renders with new theme
 ### CSS Variable Hierarchy
 
 ```
-System Preference (@media prefers-color-scheme)
+:root CSS Variables (Light theme - default)
          ↓
-Force Classes (.theme-light, .theme-dark)
-         ↓
-:root CSS Variables
+.theme-dark class (Dark theme - explicit selection)
          ↓
 Component Styles
 ```
@@ -240,7 +239,7 @@ Component Styles
 - All existing functionality remains intact
 - Legacy color values have been replaced with CSS variables
 - No breaking changes to HTML structure
-- Theme functionality is optional (system preference is default)
+- Light theme is now the default (system preference option removed)
 
 ---
 

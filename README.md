@@ -8,19 +8,17 @@
 
 ### Dark Mode / Theme Support
 
-The application now includes a comprehensive theme system supporting:
-- **Light Theme** - Bright, clean interface
+The application includes a theme system with the following options:
+- **Light Theme** - Bright, clean interface (default)
 - **Dark Theme** - Dark mode for comfortable night viewing
-- **System Theme** - Automatically follows OS/browser dark mode preference
 
 #### How to Use Theme Selector
 
 1. Click the menu toggle button (hamburger icon) in the top-right corner
 2. Scroll to the "Theme" section at the bottom of the sidebar menu
 3. Select your preferred theme:
-   - **Light** - Forces light theme
-   - **Dark** - Forces dark theme
-   - **System** - Uses your operating system's dark mode setting
+   - **Light** - Bright, clean interface
+   - **Dark** - Dark mode for night viewing
 
 Your preference is automatically saved to your session and will be remembered during your visit.
 

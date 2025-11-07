@@ -13,7 +13,13 @@
       "Bash(curl -k -I https://localhost:8443)",
       "Bash(curl -I http://localhost:8090)",
       "Bash(curl -v https://localhost:8443/index.php)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "Bash(git -C \"c:\\Users\\alexa\\OneDrive\\Documents\\GitHub\\katalon-demo-cura\" log --oneline -20)",
+      "Bash(git -C \"c:\\Users\\alexa\\OneDrive\\Documents\\GitHub\\katalon-demo-cura\" show 52afb69 --stat)",
+      "Bash(git -C \"c:\\Users\\alexa\\OneDrive\\Documents\\GitHub\\katalon-demo-cura\" show ce8d0d3 --stat)",
+      "Bash(git -C \"c:\\Users\\alexa\\OneDrive\\Documents\\GitHub\\katalon-demo-cura\" show 94ea3f2 --stat)",
+      "Bash(git -C \"c:\\Users\\alexa\\OneDrive\\Documents\\GitHub\\katalon-demo-cura\" show 52afb69)",
+      "Bash(git -C \"c:\\Users\\alexa\\OneDrive\\Documents\\GitHub\\katalon-demo-cura\" show ce8d0d3)"
     ],
     "deny": [],
     "ask": []
