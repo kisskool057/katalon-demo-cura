@@ -30,15 +30,18 @@ docker-compose up -d
 This command will:
 - Build the Docker image from the Dockerfile
 - Start the container named `katalon-demo-cura`
-- Map port 8080 on your machine to port 80 in the container
+- Map port 8090 on your machine to port 80 in the container
+- Map port 8443 on your machine to port 443 in the container (HTTPS)
 - Mount the current directory as a volume for live code updates
 
 ### 3. Access the Application
 
 Open your browser and navigate to:
 ```
-http://localhost:8080
+https://localhost:8443
 ```
+
+**Note**: The application uses a self-signed SSL certificate for development. Your browser may show a security warning - this is normal and expected. Click "Advanced" and "Proceed to localhost" to continue.
 
 The application should now be running!
 
@@ -48,9 +51,12 @@ The application should now be running!
 
 - **Image**: Built from `Dockerfile`
 - **Container Name**: `katalon-demo-cura`
-- **Port Mapping**: `8080:80` (external:internal)
+- **Port Mapping**:
+  - `8090:80` (HTTP - auto-redirects to HTTPS)
+  - `8443:443` (HTTPS - secure connection)
 - **Volume**: Current directory mounted to `/var/www/html`
 - **Restart Policy**: `unless-stopped`
+- **SSL**: Self-signed certificate generated during build
 
 ## Common Commands
 
@@ -158,6 +164,54 @@ services:
       - cura-network        # Custom network
 ```
 
+## SSL/HTTPS Configuration
+
+### Self-Signed Certificate
+
+The Docker image generates a self-signed SSL certificate automatically during build:
+
+- **Certificate File**: `/etc/apache2/ssl/server.crt`
+- **Private Key**: `/etc/apache2/ssl/server.key`
+- **Validity**: 365 days from build date
+- **Common Name**: localhost
+
+### Browser Security Warning
+
+When accessing `https://localhost:8443`, your browser will display a security warning because the certificate is self-signed. This is **normal and expected** for development.
+
+**How to proceed:**
+
+**Chrome/Chromium/Edge**:
+1. Click "Advanced"
+2. Click "Proceed to localhost (unsafe)"
+
+**Firefox**:
+1. Click "Advanced..."
+2. Click "Accept the Risk and Continue"
+
+**Safari**:
+1. Click "Show Details"
+2. Click "visit this website"
+
+### HTTP to HTTPS Redirect
+
+All HTTP traffic on port 8090 is automatically redirected to HTTPS on port 8443:
+
+```
+http://localhost:8090 → https://localhost:8443
+```
+
+This redirection is configured in `apache-http.conf` using Apache mod_rewrite.
+
+### For Production
+
+For production use, you should:
+
+1. **Use a proper SSL certificate** from a trusted Certificate Authority (Let's Encrypt, DigiCert, etc.)
+2. **Store secrets securely** (use environment variables, Kubernetes secrets, etc.)
+3. **Enable HSTS** (HTTP Strict Transport Security)
+4. **Configure security headers** (already included in the config)
+
 ## Troubleshooting
 
 ### Container Won't Start
@@ -165,8 +219,13 @@ services:
 **Problem**: `docker-compose up` fails with an error
 
 **Solution**:
-1. Check if port 8080 is already in use: `netstat -tulpn | grep 8080`
-2. If so, change the port in `docker-compose.yml`: `8081:80` instead of `8080:80`
+1. Check if port 8090 or 8443 is already in use: `netstat -tulpn | grep 8090` or `grep 8443`
+2. If so, change the ports in `docker-compose.yml`:
+   ```yaml
+   ports:
+     - "8091:80"   # Use 8091 instead of 8090
+     - "8444:443"  # Use 8444 instead of 8443
+   ```
 3. Try again: `docker-compose up -d`
 
 ### Permission Issues
@@ -189,18 +248,28 @@ docker-compose exec web chown -R 1000:1000 /var/www/html
 2. Verify all files exist: `docker-compose exec web ls -la`
 3. Check PHP syntax: `docker-compose exec web php -l index.php`
 
-### Port 8080 Already in Use
+### Browser Shows Certificate Security Warning
 
-**Problem**: `Error response from daemon: Ports are not available`
+**Problem**: "This site cannot provide a secure connection" or certificate warning
 
 **Solution**:
-1. Use a different port in `docker-compose.yml`:
-   ```yaml
-   ports:
-     - "8081:80"  # Use 8081 instead
-   ```
-2. Restart: `docker-compose down && docker-compose up -d`
-3. Access at: `http://localhost:8081`
+This is expected with self-signed certificates. You can safely ignore this warning:
+
+1. **Chrome/Edge**: Click "Advanced" → "Proceed to localhost"
+2. **Firefox**: Click "Advanced..." → "Accept the Risk and Continue"
+3. **Safari**: Click "Show Details" → "visit this website"
+
+The warning appears because the certificate is created locally, not by a trusted Certificate Authority. This is completely safe for development.
+
+### HTTPS Not Working
+
+**Problem**: `https://localhost:8443` shows connection error
+
+**Solution**:
+1. Ensure the container is running: `docker-compose ps`
+2. Check if port 8443 is in use: `netstat -tulpn | grep 8443`
+3. Rebuild the image to regenerate SSL certificate: `docker-compose build --no-cache`
+4. Restart: `docker-compose down && docker-compose up -d`
 
 ## Performance Notes
 

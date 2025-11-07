@@ -40,7 +40,11 @@ Your preference is automatically saved to your session and will be remembered du
 docker-compose up -d
 ```
 
-4. Access the application at: **http://localhost:8080**
+4. Access the application at: **https://localhost:8443**
+
+   **Note**: The application uses a self-signed SSL certificate for development. Your browser may show a security warning - this is normal and expected. Click "Advanced" and "Proceed to localhost" to continue.
+
+   HTTP traffic on port 8090 is automatically redirected to HTTPS on port 8443.
 
 ### Docker Commands
 
@@ -67,9 +71,12 @@ docker-compose build --no-cache
 ### Docker Configuration
 
 - **Image**: Based on `php:7.4-apache`
-- **Port**: 8080 (accessible as http://localhost:8080)
+- **Ports**:
+  - HTTP: 8090 (automatically redirects to HTTPS)
+  - HTTPS: 8443 (secure connection)
 - **Volume**: Source code directory is mounted for development
-- **Modules**: Apache mod_rewrite is enabled for .htaccess support
+- **Modules**: Apache mod_rewrite and mod_ssl are enabled
+- **SSL**: Self-signed certificate for development (valid for 365 days)
 
 ## Libraries
 

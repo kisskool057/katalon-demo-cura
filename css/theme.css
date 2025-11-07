@@ -38,8 +38,7 @@
 }
 
 /* Force dark theme when theme-dark class is applied */
-body.theme-dark,
-body.theme-dark :root {
+body.theme-dark {
     --color-primary: rgba(100, 95, 165, 0.9);
     --color-primary-hover: rgba(115, 112, 181, 0.95);
     --color-secondary: #3fa5d6;
@@ -54,8 +53,7 @@ body.theme-dark :root {
 }
 
 /* Force light theme when theme-light class is applied */
-body.theme-light,
-body.theme-light :root {
+body.theme-light {
     --color-primary: rgba(115, 112, 181, 0.8);
     --color-primary-hover: rgba(115, 112, 181, 0.9);
     --color-secondary: #4fb6e7;

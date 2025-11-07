@@ -10,7 +10,9 @@ docker-compose up -d
 
 ### Step 2: Open Your Browser
 
-Navigate to: **http://localhost:8080**
+Navigate to: **https://localhost:8443**
+
+**Note**: You'll see a security warning about the self-signed certificate - this is normal. Click "Advanced" → "Proceed to localhost" (Chrome/Edge) or "Accept the Risk and Continue" (Firefox).
 
 ### Step 3: Test the Theme Feature
 
@@ -34,7 +36,9 @@ Navigate to: **http://localhost:8080**
 ### 🐳 Docker Support
 - One-command deployment
 - Development-ready with live code reloading
-- Port 8080 for local access
+- HTTPS support with self-signed certificate
+- Port 8090 (HTTP, auto-redirects to HTTPS)
+- Port 8443 (HTTPS, secure connection)
 - Apache with mod_rewrite enabled
 
 ---
@@ -68,9 +72,11 @@ docker-compose exec web bash
 
 ```
 katalon-demo-cura/
-├── Dockerfile                    # Docker image definition
+├── Dockerfile                    # Docker image definition (with SSL)
 ├── docker-compose.yml            # Docker Compose setup
 ├── .dockerignore                 # Files to exclude from Docker
+├── apache-ssl.conf               # Apache HTTPS configuration
+├── apache-http.conf              # Apache HTTP configuration
 ├── set-theme.php                 # Theme preference API
 ├── functions.php                 # (Modified) Added ThemeManager
 ├── css/theme.css                 # (Modified) CSS with variables
@@ -83,12 +89,21 @@ katalon-demo-cura/
 
 ## Troubleshooting
 
-### Port 8080 Already in Use?
-Edit `docker-compose.yml` and change:
+### Browser Shows Security Warning?
+This is expected with self-signed certificates. The browser is warning you because the certificate was created locally, not signed by a certificate authority. This is safe for development.
+
+**Chrome/Edge**: Click "Advanced" → "Proceed to localhost"
+**Firefox**: Click "Accept the Risk and Continue"
+
+### Port 8090 or 8443 Already in Use?
+Edit `docker-compose.yml` and change the ports:
 ```yaml
 ports:
-  - "8081:80"  # Use 8081 instead
+  - "8091:80"   # Use 8091 instead of 8090
+  - "8444:443"  # Use 8444 instead of 8443
 ```
+
+Then access: `https://localhost:8444`
 
 ### Container won't start?
 Check logs:

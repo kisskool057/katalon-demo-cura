@@ -7,7 +7,8 @@ services:
       dockerfile: Dockerfile
     container_name: katalon-demo-cura
     ports:
-      - "8080:80"
+      - "8090:80"
+      - "8443:443"
     volumes:
       # Bind mount for development - allows real-time code changes
       - .:/var/www/html

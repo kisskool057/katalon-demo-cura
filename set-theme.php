@@ -25,16 +25,21 @@ if (!$theme) {
 
 // Set the theme using ThemeManager
 if (ThemeManager::setTheme($theme)) {
+    // Log the theme change
+    error_log("Theme changed to: " . $theme);
+
     echo json_encode([
         'success' => true,
         'theme' => $theme,
-        'message' => 'Theme updated successfully'
+        'message' => 'Theme updated successfully',
+        'session_theme' => ThemeManager::getTheme()
     ]);
 } else {
     http_response_code(400);
     echo json_encode([
         'error' => 'Invalid theme value',
-        'received' => $theme
+        'received' => $theme,
+        'valid_themes' => ['light', 'dark', 'system']
     ]);
 }
 

@@ -17,13 +17,21 @@ function applyCurrentTheme() {
     // Apply the selected theme class if it's not 'system'
     if (selectedTheme && selectedTheme !== 'system') {
         $('body').addClass('theme-' + selectedTheme);
+        console.log('Theme applied:', 'theme-' + selectedTheme);
+    } else {
+        console.log('Theme not applied (system mode or no selection)');
     }
+
+    // Debug: log current body classes
+    console.log('Body classes:', document.body.className);
 }
 
 // Handle theme changes
 $(function() {
     $('input[name="theme"]').on('change', function() {
         var selectedTheme = $(this).val();
+
+        console.log('Theme radio changed to:', selectedTheme);
 
         // Apply the theme immediately
         applyCurrentTheme();
@@ -34,10 +42,13 @@ $(function() {
             type: 'POST',
             data: { theme: selectedTheme },
             success: function(response) {
-                console.log('Theme updated: ' + selectedTheme);
+                console.log('Theme persisted to server:', response);
+                // Visual feedback - briefly show a message
+                var bgColor = window.getComputedStyle(document.body).backgroundColor;
+                console.log('Current body background color:', bgColor);
             },
             error: function(xhr, status, error) {
-                console.log('Error updating theme: ' + error);
+                console.error('Error updating theme:', error, xhr.responseText);
             }
         });
     });
