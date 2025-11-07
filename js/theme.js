@@ -1,3 +1,52 @@
+// ============================================
+// THEME MANAGEMENT
+// ============================================
+
+// Apply theme class to body on page load
+$(function() {
+    applyCurrentTheme();
+});
+
+function applyCurrentTheme() {
+    // Get the current theme from the radio button
+    var selectedTheme = $('input[name="theme"]:checked').val();
+
+    // Remove all theme classes
+    $('body').removeClass('theme-light theme-dark');
+
+    // Apply the selected theme class if it's not 'system'
+    if (selectedTheme && selectedTheme !== 'system') {
+        $('body').addClass('theme-' + selectedTheme);
+    }
+}
+
+// Handle theme changes
+$(function() {
+    $('input[name="theme"]').on('change', function() {
+        var selectedTheme = $(this).val();
+
+        // Apply the theme immediately
+        applyCurrentTheme();
+
+        // Send the theme preference to the server
+        $.ajax({
+            url: './set-theme.php',
+            type: 'POST',
+            data: { theme: selectedTheme },
+            success: function(response) {
+                console.log('Theme updated: ' + selectedTheme);
+            },
+            error: function(xhr, status, error) {
+                console.log('Error updating theme: ' + error);
+            }
+        });
+    });
+});
+
+// ============================================
+// NAVIGATION AND SCROLLING
+// ============================================
+
 // Closes the sidebar menu
 $("#menu-close").click(function(e) {
     e.preventDefault();

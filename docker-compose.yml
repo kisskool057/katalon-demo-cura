@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: katalon-demo-cura
+    ports:
+      - "8080:80"
+    volumes:
+      # Bind mount for development - allows real-time code changes
+      - .:/var/www/html
+    environment:
+      # Set PHP timezone (optional)
+      PHP_TZ: UTC
+    restart: unless-stopped
+    networks:
+      - cura-network
+
+networks:
+  cura-network:
+    driver: bridge

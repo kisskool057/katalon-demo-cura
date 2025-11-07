@@ -1,3 +1,7 @@
+<?php
+// Initialize theme manager
+ThemeManager::initializeTheme();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,7 +34,7 @@
 
 </head>
 
-<body>
+<body <?php echo ThemeManager::getThemeClass() ? 'class="' . ThemeManager::getThemeClass() . '"' : ''; ?>>
 <!-- Navigation -->
 <a id="menu-toggle" href="#" class="btn btn-dark btn-lg toggle"><i class="fa fa-bars"></i></a>
 <nav id="sidebar-wrapper">
@@ -57,6 +61,25 @@
             <a href="profile.php#login" onclick="$('#menu-close').click();">Login</a>
         </li>
         <?php endif; ?>
+        <li style="border-top: 1px solid rgba(255, 255, 255, 0.2); margin-top: 20px; padding-top: 20px;">
+            <a href="#" style="text-indent: 0; padding: 0 10px; cursor: default; pointer-events: none; line-height: auto; color: var(--color-text-muted); font-weight: bold; font-size: 0.9em;">Theme</a>
+        </li>
+        <li style="text-indent: 0; padding: 10px; line-height: auto;">
+            <form id="theme-form" style="margin: 0; display: flex; gap: 5px; flex-wrap: wrap;">
+                <label style="display: flex; align-items: center; gap: 5px; color: var(--color-text-muted); font-size: 0.85em; cursor: pointer;">
+                    <input type="radio" name="theme" value="light" <?php echo ThemeManager::getTheme() === 'light' ? 'checked' : ''; ?> style="cursor: pointer;">
+                    Light
+                </label>
+                <label style="display: flex; align-items: center; gap: 5px; color: var(--color-text-muted); font-size: 0.85em; cursor: pointer;">
+                    <input type="radio" name="theme" value="dark" <?php echo ThemeManager::getTheme() === 'dark' ? 'checked' : ''; ?> style="cursor: pointer;">
+                    Dark
+                </label>
+                <label style="display: flex; align-items: center; gap: 5px; color: var(--color-text-muted); font-size: 0.85em; cursor: pointer;">
+                    <input type="radio" name="theme" value="system" <?php echo ThemeManager::getTheme() === 'system' ? 'checked' : ''; ?> style="cursor: pointer;">
+                    System
+                </label>
+            </form>
+        </li>
     </ul>
 </nav>
 

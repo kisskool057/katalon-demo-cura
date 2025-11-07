@@ -4,6 +4,49 @@ require 'config.php';
 require 'underscore.php';
 require 'security.php';
 
+class ThemeManager {
+    const SESSION_THEME_KEY = 'user_theme';
+    const THEME_LIGHT = 'light';
+    const THEME_DARK = 'dark';
+    const THEME_SYSTEM = 'system';
+
+    // Get current theme preference
+    public static function getTheme() {
+        if (isset($_SESSION[self::SESSION_THEME_KEY])) {
+            return $_SESSION[self::SESSION_THEME_KEY];
+        }
+        return self::THEME_SYSTEM; // Default to system preference
+    }
+
+    // Set theme preference
+    public static function setTheme($theme) {
+        if (in_array($theme, [self::THEME_LIGHT, self::THEME_DARK, self::THEME_SYSTEM])) {
+            $_SESSION[self::SESSION_THEME_KEY] = $theme;
+            return true;
+        }
+        return false;
+    }
+
+    // Get CSS class to apply to body
+    public static function getThemeClass() {
+        $theme = self::getTheme();
+
+        if ($theme === self::THEME_SYSTEM) {
+            // Return empty - CSS will use media query for system preference
+            return '';
+        }
+
+        return 'theme-' . $theme;
+    }
+
+    // Initialize theme in session if not exists
+    public static function initializeTheme() {
+        if (!isset($_SESSION[self::SESSION_THEME_KEY])) {
+            $_SESSION[self::SESSION_THEME_KEY] = self::THEME_SYSTEM;
+        }
+    }
+}
+
 class _f extends __{
     public $antiCSRF;
 
