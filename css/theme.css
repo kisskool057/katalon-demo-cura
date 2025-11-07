@@ -245,6 +245,8 @@ hr.small {
 
 footer {
     padding: 100px 0;
+    background-color: var(--color-bg-dark);
+    color: var(--color-text-primary);
 }
 
 #to-top {
@@ -253,4 +255,209 @@ footer {
   bottom: 5px;
   right: 5px;
   z-index: 1030;
+}
+
+/* Additional Bootstrap Overrides for Theme Support */
+
+/* Forms and inputs */
+.form-group {
+    color: var(--color-text-secondary);
+}
+
+.control-label {
+    color: var(--color-text-secondary);
+}
+
+.form-control {
+    background-color: var(--color-bg-light);
+    color: var(--color-text-secondary);
+    border-color: var(--color-border);
+}
+
+.form-control:focus {
+    background-color: var(--color-bg-light);
+    color: var(--color-text-secondary);
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 0.2rem rgba(115, 112, 181, 0.25);
+}
+
+.input-group-addon {
+    background-color: var(--color-bg-dark);
+    color: var(--color-text-primary);
+    border-color: var(--color-border);
+}
+
+/* Panels and containers */
+.panel {
+    border-color: var(--color-border);
+    background-color: var(--color-bg-light);
+}
+
+.panel-heading {
+    background-color: var(--color-bg-dark);
+    color: var(--color-text-primary);
+    border-color: var(--color-border);
+}
+
+.panel-body {
+    color: var(--color-text-secondary);
+}
+
+/* Sections */
+.section {
+    background-color: var(--color-bg-light);
+    color: var(--color-text-secondary);
+}
+
+/* Alert boxes */
+.alert {
+    background-color: var(--color-bg-light);
+    color: var(--color-text-secondary);
+    border-color: var(--color-border);
+}
+
+.alert-info {
+    background-color: var(--color-bg-light);
+    color: var(--color-text-secondary);
+    border-color: var(--color-border);
+}
+
+.alert-success {
+    background-color: var(--color-bg-light);
+    color: var(--color-text-secondary);
+    border-color: var(--color-border);
+}
+
+.alert-warning {
+    background-color: var(--color-bg-light);
+    color: var(--color-text-secondary);
+    border-color: var(--color-border);
+}
+
+.alert-danger {
+    background-color: var(--color-bg-light);
+    color: var(--color-text-secondary);
+    border-color: var(--color-border);
+}
+
+/* Links */
+a {
+    color: var(--color-primary);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--color-primary-hover);
+    text-decoration: underline;
+}
+
+/* Modals */
+.modal-content {
+    background-color: var(--color-bg-light);
+    border-color: var(--color-border);
+}
+
+.modal-header {
+    background-color: var(--color-bg-dark);
+    border-color: var(--color-border);
+    color: var(--color-text-primary);
+}
+
+.modal-body {
+    color: var(--color-text-secondary);
+}
+
+.modal-footer {
+    background-color: var(--color-bg-light);
+    border-color: var(--color-border);
+}
+
+/* Tables */
+table {
+    color: var(--color-text-secondary);
+}
+
+.table > thead > tr > th {
+    background-color: var(--color-bg-dark);
+    color: var(--color-text-primary);
+    border-color: var(--color-border);
+}
+
+.table > tbody > tr > td {
+    border-color: var(--color-border);
+}
+
+.table > tbody > tr:hover > td {
+    background-color: var(--color-bg-light-hover);
+}
+
+/* Dropdowns */
+.dropdown-menu {
+    background-color: var(--color-bg-light);
+    border-color: var(--color-border);
+}
+
+.dropdown-menu > li > a {
+    color: var(--color-text-secondary);
+}
+
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus {
+    background-color: var(--color-bg-light-hover);
+    color: var(--color-text-secondary);
+}
+
+/* Labels and badges */
+label {
+    color: var(--color-text-secondary);
+}
+
+.label,
+.badge {
+    background-color: var(--color-primary);
+}
+
+/* Wells */
+.well {
+    background-color: var(--color-bg-light);
+    border-color: var(--color-border);
+    color: var(--color-text-secondary);
+}
+
+/* Pagination */
+.pagination > li > a,
+.pagination > li > span {
+    background-color: var(--color-bg-light);
+    color: var(--color-primary);
+    border-color: var(--color-border);
+}
+
+.pagination > li > a:hover {
+    background-color: var(--color-bg-light-hover);
+    border-color: var(--color-primary);
+}
+
+.pagination > .active > a,
+.pagination > .active > span {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+}
+
+/* Progress bars */
+.progress {
+    background-color: var(--color-bg-light);
+}
+
+.progress-bar {
+    background-color: var(--color-primary);
+}
+
+/* Breadcrumbs */
+.breadcrumb {
+    background-color: var(--color-bg-light);
+    border-color: var(--color-border);
+}
+
+.breadcrumb > li + li:before {
+    color: var(--color-text-secondary);
 }
