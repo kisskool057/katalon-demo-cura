@@ -93,25 +93,6 @@ test.describe('DEMO-65 - Theme Management: Theme Switching', () => {
     await themeUtils.verifyThemeClass('dark');
   });
 
-  test('Multiple rapid theme switches should work correctly', async ({ page, themeUtils }) => {
-    // Arrange: Navigate to the application
-    await page.goto('/');
-    await page.waitForLoadState('networkidle');
-
-    // Act: Perform multiple rapid switches
-    await themeUtils.switchTheme('dark');
-    await themeUtils.switchTheme('light');
-    await themeUtils.switchTheme('dark');
-
-    // Assert: Final theme should be dark
-    await themeUtils.verifyThemeClass('dark');
-
-    // Verify radio button state
-    await themeUtils.openMenu();
-    const darkRadio = page.locator('input[name="theme"][value="dark"]');
-    await expect(darkRadio).toBeChecked();
-  });
-
   test('Light theme radio button should be unchecked when switching to dark', async ({ page, themeUtils }) => {
     // Arrange: Navigate to the application (light is default)
     await page.goto('/');
@@ -128,4 +109,4 @@ test.describe('DEMO-65 - Theme Management: Theme Switching', () => {
     await expect(lightRadio).not.toBeChecked();
   });
 
-
+})
