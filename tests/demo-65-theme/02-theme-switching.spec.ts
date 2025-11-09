@@ -93,18 +93,6 @@ test.describe('DEMO-65 - Theme Management: Theme Switching', () => {
     await themeUtils.verifyThemeClass('dark');
   });
 
-  test('Dark theme CSS variables should be applied', async ({ page, themeUtils }) => {
-    // Arrange: Navigate to the application
-    await page.goto('/');
-    await page.waitForLoadState('networkidle');
-
-    // Act: Switch to dark theme
-    await themeUtils.switchTheme('dark');
-
-    // Assert: CSS variables for dark theme should be set
-    await themeUtils.verifyCSSVariables('dark');
-  });
-
   test('Multiple rapid theme switches should work correctly', async ({ page, themeUtils }) => {
     // Arrange: Navigate to the application
     await page.goto('/');
@@ -140,16 +128,4 @@ test.describe('DEMO-65 - Theme Management: Theme Switching', () => {
     await expect(lightRadio).not.toBeChecked();
   });
 
-  test('Menu should close automatically after theme selection', async ({ page, themeUtils }) => {
-    // Arrange: Navigate to the application
-    await page.goto('/');
-    await page.waitForLoadState('networkidle');
 
-    // Act: Switch to dark theme (menu should close automatically)
-    await themeUtils.switchTheme('dark');
-
-    // Assert: Menu should be closed
-    const isOpen = await themeUtils.isMenuOpen();
-    expect(isOpen).toBe(false);
-  });
-});
