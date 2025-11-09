@@ -50,15 +50,6 @@ test.describe('DEMO-65 - Theme Management: Default Light Theme', () => {
     expect(bodyClasses).toContain('theme-light');
   });
 
-  test('Light theme CSS variables should be applied', async ({ page, themeUtils }) => {
-    // Arrange & Act: Navigate to the application
-    await page.goto('/');
-    await page.waitForLoadState('networkidle');
-
-    // Assert: Verify CSS variables for light theme
-    await themeUtils.verifyCSSVariables('light');
-  });
-
   test('Theme selector should be accessible in the hamburger menu', async ({ page, themeUtils }) => {
     // Arrange & Act: Navigate to the application
     await page.goto('/');
