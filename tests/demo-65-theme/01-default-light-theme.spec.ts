@@ -9,15 +9,18 @@ import { test, expect } from '../fixtures';
  */
 test.describe('DEMO-65 - Theme Management: Default Light Theme', () => {
   test.beforeEach(async ({ page }) => {
-    // Clear session storage to simulate fresh start
+    // Navigate first to ensure page context is established
+    // Then clear session storage to simulate fresh start
+    await page.goto('/');
     await page.evaluate(() => {
       sessionStorage.clear();
     });
+    // Go back to home to start with clean state
+    await page.goto('/');
   });
 
   test('Light theme should be applied by default on first load', async ({ page, themeUtils }) => {
-    // Arrange & Act: Navigate to the application
-    await page.goto('/');
+    // Arrange & Act: Application already navigated in beforeEach
     await page.waitForLoadState('networkidle');
 
     // Assert: Verify the light theme is applied

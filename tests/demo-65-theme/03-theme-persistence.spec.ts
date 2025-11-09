@@ -8,10 +8,14 @@ import { test, expect } from '../fixtures';
  */
 test.describe('DEMO-65 - Theme Management: Theme Persistence', () => {
   test.beforeEach(async ({ page }) => {
-    // Clear session storage to simulate fresh start
+    // Navigate first to ensure page context is established
+    // Then clear session storage to simulate fresh start
+    await page.goto('/');
     await page.evaluate(() => {
       sessionStorage.clear();
     });
+    // Go back to home to start with clean state
+    await page.goto('/');
   });
 
   test('Theme preference should persist during the session', async ({ page, themeUtils }) => {

@@ -19,7 +19,9 @@
       "Bash(git -C \"c:\\Users\\alexa\\OneDrive\\Documents\\GitHub\\katalon-demo-cura\" show ce8d0d3 --stat)",
       "Bash(git -C \"c:\\Users\\alexa\\OneDrive\\Documents\\GitHub\\katalon-demo-cura\" show 94ea3f2 --stat)",
       "Bash(git -C \"c:\\Users\\alexa\\OneDrive\\Documents\\GitHub\\katalon-demo-cura\" show 52afb69)",
-      "Bash(git -C \"c:\\Users\\alexa\\OneDrive\\Documents\\GitHub\\katalon-demo-cura\" show ce8d0d3)"
+      "Bash(git -C \"c:\\Users\\alexa\\OneDrive\\Documents\\GitHub\\katalon-demo-cura\" show ce8d0d3)",
+      "Bash(nul)",
+      "Bash(npm test:*)"
     ],
     "deny": [],
     "ask": []

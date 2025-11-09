@@ -8,10 +8,14 @@ import { test, expect } from '../fixtures';
  */
 test.describe('DEMO-65 - Theme Management: Visual Styles and Transitions', () => {
   test.beforeEach(async ({ page }) => {
-    // Clear session storage to simulate fresh start
+    // Navigate first to ensure page context is established
+    // Then clear session storage to simulate fresh start
+    await page.goto('/');
     await page.evaluate(() => {
       sessionStorage.clear();
     });
+    // Go back to home to start with clean state
+    await page.goto('/');
   });
 
   test('Theme transition CSS should be smooth (0.3s)', async ({ page, themeUtils }) => {
