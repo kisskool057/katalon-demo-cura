@@ -65,6 +65,12 @@ document.addEventListener('change', function(e) {
                 console.log('[theme] Theme persisted to server:', xhr.responseText);
                 var bgColor = window.getComputedStyle(document.body).backgroundColor;
                 console.log('Current body background color:', bgColor);
+
+                // Close the menu automatically after selection
+                // Use jQuery to ensure consistency with existing menu code
+                if ($('#sidebar-wrapper').hasClass('active')) {
+                    $('#sidebar-wrapper').removeClass('active');
+                }
             } else {
                 console.error('[theme] Server error:', xhr.status, xhr.responseText);
             }

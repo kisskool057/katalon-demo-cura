@@ -103,9 +103,6 @@ export const test = base.extend<ThemeTestFixture>({
 
         // Wait for AJAX request to complete
         await page.waitForLoadState('networkidle');
-
-        // Close the menu after switching
-        await themeUtils.closeMenu();
       },
 
       verifyThemeClass: async (expectedTheme: 'light' | 'dark') => {
