@@ -53,8 +53,8 @@ test.describe('DEMO-65 - Theme Management: Theme Switching', () => {
     // Act: Switch to dark theme
     await themeUtils.switchTheme('dark');
 
-    // Open menu to verify the radio button state
-    await themeUtils.openMenu();
+    // Ensure the radio input is present (menu not required) then verify state
+    await page.waitForSelector('input[name="theme"][value="dark"]');
 
     // Assert: Dark radio button should be checked
     const darkRadio = page.locator('input[name="theme"][value="dark"]');
@@ -101,8 +101,8 @@ test.describe('DEMO-65 - Theme Management: Theme Switching', () => {
     // Act: Switch to dark theme
     await themeUtils.switchTheme('dark');
 
-    // Open menu to verify the radio button state
-    await themeUtils.openMenu();
+    // Ensure the radio input is present (menu not required) then verify state
+    await page.waitForSelector('input[name="theme"][value="light"]');
 
     // Assert: Light radio button should be unchecked
     const lightRadio = page.locator('input[name="theme"][value="light"]');
